@@ -33,6 +33,7 @@
 @optional
 
 - (CGSize)minimumAutogrowSizeForTextView:(TOMTextView *)textView;
+- (CGSize)maximumAutogrowSizeForTextView:(TOMTextView *)textView;
 - (void)textView:(TOMTextView *)textView willAutogrowToSize:(CGSize)size;
 - (void)textView:(TOMTextView *)textView didAutogrowToSize:(CGSize)size;
 

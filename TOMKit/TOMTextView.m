@@ -163,6 +163,13 @@
         textSize.height = MAX(textSize.height, minimumSize.height);
     }
     
+    // Check if size is larger than desired and adjust it accordingly.
+    if ([self.delegate respondsToSelector:@selector(maximumAutogrowSizeForTextView:)]) {
+        CGSize maximumSize = [self.delegate maximumAutogrowSizeForTextView:self];
+        textSize.width = MIN(textSize.width, maximumSize.width);
+        textSize.height = MIN(textSize.height, maximumSize.height);
+    }
+    
     return textSize;
 }
 
