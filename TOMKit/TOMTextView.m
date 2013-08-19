@@ -138,7 +138,7 @@
         
 		[self.placeholderColor set];
         
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_7_0
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
         [self.placeholder drawAtPoint:rect.origin withAttributes:@{ NSFontAttributeName : self.placeholderFont }];
 #else
 		[self.placeholder drawInRect:rect withFont:self.placeholderFont];
