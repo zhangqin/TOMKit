@@ -152,9 +152,7 @@
         return [super sizeThatFits:size];
     }
     
-    CGSize textSize = self.contentSize;
-    textSize.width += self.contentInset.left+self.contentInset.right;
-    textSize.height += self.contentInset.top+self.contentInset.bottom;
+    CGSize textSize = CGSizeZero;
     
     // Check if size is smaller than desired and adjust it accordingly.
     if ([self.delegate respondsToSelector:@selector(minimumAutogrowSizeForTextView:)]) {
@@ -170,6 +168,12 @@
         textSize.height = MIN(textSize.height, maximumSize.height);
     }
     
+	 CGSize sizeThatFits = [super sizeThatFits:textSize];
+	 CGSize contentSize = self.contentSize;
+    
+	 textSize.width = MAX(sizeThatFits.width, contentSize.width);
+	 textSize.height = MAX(sizeThatFits.height, contentSize.height);
+	 
     return textSize;
 }
 
