@@ -117,7 +117,6 @@
     _autogrow = autogrow;
     [self didChangeValueForKey:@"autogrow"];
     
-    self.scrollEnabled = !autogrow;
     [self resizeToFit];
 }
 
@@ -152,27 +151,19 @@
         return [super sizeThatFits:size];
     }
     
-    CGSize textSize = CGSizeZero;
+    CGSize textSize = [super sizeThatFits:size];
     
     // Check if size is smaller than desired and adjust it accordingly.
     if ([self.delegate respondsToSelector:@selector(minimumAutogrowSizeForTextView:)]) {
         CGSize minimumSize = [self.delegate minimumAutogrowSizeForTextView:self];
-        textSize.width = MAX(textSize.width, minimumSize.width);
         textSize.height = MAX(textSize.height, minimumSize.height);
     }
     
     // Check if size is larger than desired and adjust it accordingly.
     if ([self.delegate respondsToSelector:@selector(maximumAutogrowSizeForTextView:)]) {
         CGSize maximumSize = [self.delegate maximumAutogrowSizeForTextView:self];
-        textSize.width = MIN(textSize.width, maximumSize.width);
         textSize.height = MIN(textSize.height, maximumSize.height);
     }
-    
-	 CGSize sizeThatFits = [super sizeThatFits:textSize];
-	 CGSize contentSize = self.contentSize;
-    
-	 textSize.width = MAX(sizeThatFits.width, contentSize.width);
-	 textSize.height = MAX(sizeThatFits.height, contentSize.height);
 	 
     return textSize;
 }
@@ -202,6 +193,10 @@
     CGSize sizeThatFits = [self sizeThatFits:CGSizeMake(CGRectGetWidth(self.bounds), CGFLOAT_MAX)];
     CGRect frame = self.frame;
     frame.size.height = sizeThatFits.height;
+    
+    if (CGRectEqualToRect(self.frame, frame)) {
+        return;
+    }
     
     if ([self.delegate respondsToSelector:@selector(textView:willAutogrowToSize:)]) {
         [self.delegate textView:self willAutogrowToSize:frame.size];
