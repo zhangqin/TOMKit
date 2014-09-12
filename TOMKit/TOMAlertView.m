@@ -102,7 +102,7 @@
 
 - (id<UIAlertViewDelegate>)delegate
 {
-    return _externalDelegate;
+    return self;
 }
 
 - (void)setDelegate:(id<UIAlertViewDelegate>)delegate

@@ -117,7 +117,7 @@
 
 - (id<UIActionSheetDelegate>)delegate
 {
-    return _externalDelegate;
+    return self;
 }
 
 - (void)setDelegate:(id<UIActionSheetDelegate>)delegate
